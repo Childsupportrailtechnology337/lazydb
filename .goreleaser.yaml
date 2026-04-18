@@ -1,0 +1,56 @@
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+    - go generate ./...
+
+builds:
+  - main: .
+    binary: lazydb
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X github.com/aymenhmaidiwastaken/lazydb/cmd.version={{.Version}}
+      - -X github.com/aymenhmaidiwastaken/lazydb/cmd.commit={{.Commit}}
+      - -X github.com/aymenhmaidiwastaken/lazydb/cmd.date={{.Date}}
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^ci:"
+      - "^chore:"
+
+brews:
+  - repository:
+      owner: aymenhmaidiwastaken
+      name: homebrew-tap
+    homepage: "https://github.com/aymenhmaidiwastaken/lazydb"
+    description: "A lazy database client for the terminal"
+    license: "MIT"
+    install: |
+      bin.install "lazydb"
+    test: |
+      system "#{bin}/lazydb", "--version"

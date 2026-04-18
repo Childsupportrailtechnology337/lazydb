@@ -1,0 +1,10 @@
+lazydb
+lazydb.exe
+dist/
+.claude/
+PLAN.md
+*.db
+.lazydb-history
+.vhs/
+scoop/
+test_demo_test.go
